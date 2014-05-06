@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="DealerPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>dealer.DoplnkovavybavahasRezervace</class>
+    <class>dealer.Prodejce</class>
+    <class>dealer.Auto</class>
+    <class>dealer.Spolecnost</class>
+    <class>dealer.Kapacita</class>
+    <class>dealer.Zakaznik</class>
+    <class>dealer.Adresa</class>
+    <class>dealer.Rezervace</class>
+    <class>dealer.Doplnkovavybava</class>
+    <class>dealer.Pobocka</class>
+    <class>dealer.Smlouva</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://krizik.felk.cvut.cz:5434/student_db13_25"/>
+      <property name="javax.persistence.jdbc.password" value="ananas25"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="student_db13_25"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
