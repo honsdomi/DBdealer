@@ -4,6 +4,7 @@
  */
 package dealer;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -25,11 +26,6 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("DealerPU");
         EntityManager em = emf.createEntityManager();
 
-        System.out.println();
-        System.out.println("********************");
-        System.out.println("*  Dynamic Queries *");
-        System.out.println("********************");
-        System.out.println();
         TypedQuery queryS = em.createQuery("Select s from Pobocka s", Pobocka.class);
         List<Pobocka> listS = queryS.getResultList();
 
@@ -37,6 +33,11 @@ public class Main {
             Pobocka store = itS.next();
             System.out.println(store);
         }
+        
+        Query queryC = em.createNamedQuery(Prodejce.findByJmeno);
+        queryC.setParameter("jmeno", "Karel Karlov");
+        List<Prodejce> list = queryC.getResultList();
+        System.out.println(list.size());
 
     }
 }
