@@ -49,7 +49,21 @@ public class Main {
         cq.select(pet);
         TypedQuery<Prodejce> q = em.createQuery(cq);
         List<Prodejce> allPets = q.getResultList();
-        System.out.println(allPets.size());
+        System.out.println("pocet zamestnancu: " +allPets.size());
+        for(Prodejce p: allPets){
+            System.out.println(p.getJmeno());
+        }
+
+        cq = cb.createQuery(Prodejce.class);
+        Root e = cq.from(Prodejce.class);
+        cq.where(cb.greaterThan(e.get("mzda"), 40000));
+        Query query = em.createQuery(cq);
+        List<Prodejce> result = query.getResultList();
+        System.out.println("");
+        System.out.println("Mzda vyssi nez 40 tisic");
+        for(Prodejce p : result){
+            System.out.println(p.getJmeno()+" mzda: "+p.getMzda());
+        }
 
     }
 }
