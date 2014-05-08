@@ -12,6 +12,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -31,13 +34,22 @@ public class Main {
 
         for (Iterator<Pobocka> itS = listS.iterator(); itS.hasNext();) {
             Pobocka store = itS.next();
-            System.out.println(store);
+            System.out.println(store.getSpolecnostNazev());
         }
-        
+
         Query queryC = em.createNamedQuery(Prodejce.findByJmeno);
         queryC.setParameter("jmeno", "Karel Bendikovic");
         List<Prodejce> list = queryC.getResultList();
         System.out.println(list.size());
+
+        // Criteria API
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Prodejce> cq = cb.createQuery(Prodejce.class);
+        Root<Prodejce> pet = cq.from(Prodejce.class);
+        cq.select(pet);
+        TypedQuery<Prodejce> q = em.createQuery(cq);
+        List<Prodejce> allPets = q.getResultList();
+        System.out.println(allPets.size());
 
     }
 }
