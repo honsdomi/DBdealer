@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Spolecnost")
+@Table(name = "spolecnost")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Spolecnost.findAll", query = "SELECT s FROM Spolecnost s"),
@@ -38,10 +38,10 @@ public class Spolecnost implements Serializable {
     @Basic(optional = false)
     @Column(name = "nazev")
     private String nazev;
-    @JoinColumn(name = "Adresa_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "adresa_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Adresa adresaID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "spolecnostnazev")
+    private Adresa adresaId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "spolecnostNazev")
     private Collection<Pobocka> pobockaCollection;
 
     public Spolecnost() {
@@ -59,12 +59,12 @@ public class Spolecnost implements Serializable {
         this.nazev = nazev;
     }
 
-    public Adresa getAdresaID() {
-        return adresaID;
+    public Adresa getAdresaId() {
+        return adresaId;
     }
 
-    public void setAdresaID(Adresa adresaID) {
-        this.adresaID = adresaID;
+    public void setAdresaId(Adresa adresaId) {
+        this.adresaId = adresaId;
     }
 
     @XmlTransient
@@ -98,7 +98,7 @@ public class Spolecnost implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Spolecnost[ nazev=" + nazev + " ]";
+        return "dealer.Spolecnost[ nazev=" + nazev + " ]";
     }
     
 }

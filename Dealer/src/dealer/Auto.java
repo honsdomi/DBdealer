@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Auto")
+@Table(name = "auto")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Auto.findAll", query = "SELECT a FROM Auto a"),
@@ -41,7 +41,7 @@ public class Auto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "VIN")
+    @Column(name = "vin")
     private String vin;
     @Basic(optional = false)
     @Column(name = "znacka")
@@ -57,11 +57,11 @@ public class Auto implements Serializable {
     @Basic(optional = false)
     @Column(name = "typ_karoserie")
     private String typKaroserie;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "autoVIN")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "autoVin")
     private Collection<Rezervace> rezervaceCollection;
-    @JoinColumn(name = "Pobocka_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "pobocka_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Pobocka pobockaID;
+    private Pobocka pobockaId;
 
     public Auto() {
     }
@@ -135,12 +135,12 @@ public class Auto implements Serializable {
         this.rezervaceCollection = rezervaceCollection;
     }
 
-    public Pobocka getPobockaID() {
-        return pobockaID;
+    public Pobocka getPobockaId() {
+        return pobockaId;
     }
 
-    public void setPobockaID(Pobocka pobockaID) {
-        this.pobockaID = pobockaID;
+    public void setPobockaId(Pobocka pobockaId) {
+        this.pobockaId = pobockaId;
     }
 
     @Override
@@ -165,7 +165,7 @@ public class Auto implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Auto[ vin=" + vin + " ]";
+        return "dealer.Auto[ vin=" + vin + " ]";
     }
     
 }

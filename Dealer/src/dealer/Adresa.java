@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Adresa")
+@Table(name = "adresa")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Adresa.findAll", query = "SELECT a FROM Adresa a"),
@@ -41,22 +41,22 @@ public class Adresa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Column(name = "mesto")
     private String mesto;
     @Column(name = "ulice")
     private String ulice;
-    @Column(name = "CP")
+    @Column(name = "cp")
     private Integer cp;
-    @Column(name = "PSC")
+    @Column(name = "psc")
     private Integer psc;
-    @OneToMany(mappedBy = "iDAdresa")
-    private Collection<Zakaznik> zakaznikCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adresaID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adresaId")
     private Collection<Spolecnost> spolecnostCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adresaID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adresaId")
     private Collection<Pobocka> pobockaCollection;
+    @OneToMany(mappedBy = "idAdresa")
+    private Collection<Zakaznik> zakaznikCollection;
 
     public Adresa() {
     }
@@ -106,15 +106,6 @@ public class Adresa implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Zakaznik> getZakaznikCollection() {
-        return zakaznikCollection;
-    }
-
-    public void setZakaznikCollection(Collection<Zakaznik> zakaznikCollection) {
-        this.zakaznikCollection = zakaznikCollection;
-    }
-
-    @XmlTransient
     public Collection<Spolecnost> getSpolecnostCollection() {
         return spolecnostCollection;
     }
@@ -130,6 +121,15 @@ public class Adresa implements Serializable {
 
     public void setPobockaCollection(Collection<Pobocka> pobockaCollection) {
         this.pobockaCollection = pobockaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Zakaznik> getZakaznikCollection() {
+        return zakaznikCollection;
+    }
+
+    public void setZakaznikCollection(Collection<Zakaznik> zakaznikCollection) {
+        this.zakaznikCollection = zakaznikCollection;
     }
 
     @Override
@@ -154,7 +154,7 @@ public class Adresa implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Adresa[ id=" + id + " ]";
+        return "dealer.Adresa[ id=" + id + " ]";
     }
     
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Zakaznik")
+@Table(name = "zakaznik")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Zakaznik.findAll", query = "SELECT z FROM Zakaznik z"),
@@ -40,14 +40,14 @@ public class Zakaznik implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Column(name = "jmeno")
     private String jmeno;
-    @JoinColumn(name = "ID_Adresa", referencedColumnName = "ID")
+    @JoinColumn(name = "id_adresa", referencedColumnName = "id")
     @ManyToOne
-    private Adresa iDAdresa;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zakaznikID")
+    private Adresa idAdresa;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zakaznikId")
     private Collection<Smlouva> smlouvaCollection;
 
     public Zakaznik() {
@@ -73,12 +73,12 @@ public class Zakaznik implements Serializable {
         this.jmeno = jmeno;
     }
 
-    public Adresa getIDAdresa() {
-        return iDAdresa;
+    public Adresa getIdAdresa() {
+        return idAdresa;
     }
 
-    public void setIDAdresa(Adresa iDAdresa) {
-        this.iDAdresa = iDAdresa;
+    public void setIdAdresa(Adresa idAdresa) {
+        this.idAdresa = idAdresa;
     }
 
     @XmlTransient
@@ -112,7 +112,7 @@ public class Zakaznik implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Zakaznik[ id=" + id + " ]";
+        return "dealer.Zakaznik[ id=" + id + " ]";
     }
     
 }

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Tom
  */
 @Entity
-@Table(name = "Smlouva")
+@Table(name = "smlouva")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Smlouva.findAll", query = "SELECT s FROM Smlouva s"),
@@ -40,7 +40,7 @@ public class Smlouva implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @Column(name = "datum_splatnosti")
@@ -49,15 +49,15 @@ public class Smlouva implements Serializable {
     @Basic(optional = false)
     @Column(name = "je_zaplacena")
     private boolean jeZaplacena;
-    @JoinColumn(name = "Zakaznik_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "zakaznik_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Zakaznik zakaznikID;
-    @JoinColumn(name = "Rezervace_ID", referencedColumnName = "ID")
+    private Zakaznik zakaznikId;
+    @JoinColumn(name = "rezervace_id", referencedColumnName = "id")
     @ManyToOne
-    private Rezervace rezervaceID;
-    @JoinColumn(name = "Prodejce_ID", referencedColumnName = "ID")
+    private Rezervace rezervaceId;
+    @JoinColumn(name = "prodejce_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Prodejce prodejceID;
+    private Prodejce prodejceId;
 
     public Smlouva() {
     }
@@ -96,28 +96,28 @@ public class Smlouva implements Serializable {
         this.jeZaplacena = jeZaplacena;
     }
 
-    public Zakaznik getZakaznikID() {
-        return zakaznikID;
+    public Zakaznik getZakaznikId() {
+        return zakaznikId;
     }
 
-    public void setZakaznikID(Zakaznik zakaznikID) {
-        this.zakaznikID = zakaznikID;
+    public void setZakaznikId(Zakaznik zakaznikId) {
+        this.zakaznikId = zakaznikId;
     }
 
-    public Rezervace getRezervaceID() {
-        return rezervaceID;
+    public Rezervace getRezervaceId() {
+        return rezervaceId;
     }
 
-    public void setRezervaceID(Rezervace rezervaceID) {
-        this.rezervaceID = rezervaceID;
+    public void setRezervaceId(Rezervace rezervaceId) {
+        this.rezervaceId = rezervaceId;
     }
 
-    public Prodejce getProdejceID() {
-        return prodejceID;
+    public Prodejce getProdejceId() {
+        return prodejceId;
     }
 
-    public void setProdejceID(Prodejce prodejceID) {
-        this.prodejceID = prodejceID;
+    public void setProdejceId(Prodejce prodejceId) {
+        this.prodejceId = prodejceId;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class Smlouva implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Smlouva[ id=" + id + " ]";
+        return "dealer.Smlouva[ id=" + id + " ]";
     }
     
 }

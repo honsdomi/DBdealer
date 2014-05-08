@@ -35,7 +35,7 @@ public class Main {
         }
         
         Query queryC = em.createNamedQuery(Prodejce.findByJmeno);
-        queryC.setParameter("jmeno", "Karel Karlov");
+        queryC.setParameter("jmeno", "Karel Bendikovic");
         List<Prodejce> list = queryC.getResultList();
         System.out.println(list.size());
 

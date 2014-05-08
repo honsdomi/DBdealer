@@ -27,36 +27,36 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Doplnkova_vybava")
+@Table(name = "doplnkova_vybava")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Doplnkovavybava.findAll", query = "SELECT d FROM Doplnkovavybava d"),
-    @NamedQuery(name = "Doplnkovavybava.findById", query = "SELECT d FROM Doplnkovavybava d WHERE d.id = :id"),
-    @NamedQuery(name = "Doplnkovavybava.findByNazev", query = "SELECT d FROM Doplnkovavybava d WHERE d.nazev = :nazev"),
-    @NamedQuery(name = "Doplnkovavybava.findByCena", query = "SELECT d FROM Doplnkovavybava d WHERE d.cena = :cena")})
-public class Doplnkovavybava implements Serializable {
+    @NamedQuery(name = "DoplnkovaVybava.findAll", query = "SELECT d FROM DoplnkovaVybava d"),
+    @NamedQuery(name = "DoplnkovaVybava.findById", query = "SELECT d FROM DoplnkovaVybava d WHERE d.id = :id"),
+    @NamedQuery(name = "DoplnkovaVybava.findByNazev", query = "SELECT d FROM DoplnkovaVybava d WHERE d.nazev = :nazev"),
+    @NamedQuery(name = "DoplnkovaVybava.findByCena", query = "SELECT d FROM DoplnkovaVybava d WHERE d.cena = :cena")})
+public class DoplnkovaVybava implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @Column(name = "nazev")
     private String nazev;
     @Column(name = "cena")
     private Integer cena;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doplnkovavybava")
-    private Collection<DoplnkovavybavahasRezervace> doplnkovavybavahasRezervaceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doplnkovaVybava")
+    private Collection<DoplnkovaVybavaHasRezervace> doplnkovaVybavaHasRezervaceCollection;
 
-    public Doplnkovavybava() {
+    public DoplnkovaVybava() {
     }
 
-    public Doplnkovavybava(Integer id) {
+    public DoplnkovaVybava(Integer id) {
         this.id = id;
     }
 
-    public Doplnkovavybava(Integer id, String nazev) {
+    public DoplnkovaVybava(Integer id, String nazev) {
         this.id = id;
         this.nazev = nazev;
     }
@@ -86,12 +86,12 @@ public class Doplnkovavybava implements Serializable {
     }
 
     @XmlTransient
-    public Collection<DoplnkovavybavahasRezervace> getDoplnkovavybavahasRezervaceCollection() {
-        return doplnkovavybavahasRezervaceCollection;
+    public Collection<DoplnkovaVybavaHasRezervace> getDoplnkovaVybavaHasRezervaceCollection() {
+        return doplnkovaVybavaHasRezervaceCollection;
     }
 
-    public void setDoplnkovavybavahasRezervaceCollection(Collection<DoplnkovavybavahasRezervace> doplnkovavybavahasRezervaceCollection) {
-        this.doplnkovavybavahasRezervaceCollection = doplnkovavybavahasRezervaceCollection;
+    public void setDoplnkovaVybavaHasRezervaceCollection(Collection<DoplnkovaVybavaHasRezervace> doplnkovaVybavaHasRezervaceCollection) {
+        this.doplnkovaVybavaHasRezervaceCollection = doplnkovaVybavaHasRezervaceCollection;
     }
 
     @Override
@@ -104,10 +104,10 @@ public class Doplnkovavybava implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Doplnkovavybava)) {
+        if (!(object instanceof DoplnkovaVybava)) {
             return false;
         }
-        Doplnkovavybava other = (Doplnkovavybava) object;
+        DoplnkovaVybava other = (DoplnkovaVybava) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +116,7 @@ public class Doplnkovavybava implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Doplnkovavybava[ id=" + id + " ]";
+        return "dealer.DoplnkovaVybava[ id=" + id + " ]";
     }
     
 }

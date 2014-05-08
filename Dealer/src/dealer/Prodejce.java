@@ -6,29 +6,29 @@
 
 package dealer;
 
-import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Tom
  */
 @Entity
-@Table(name = "Prodejce")
+@Table(name = "prodejce")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Prodejce.findAll", query = "SELECT p FROM Prodejce p"),
@@ -38,10 +38,11 @@ import javax.persistence.Table;
 public class Prodejce implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final String findByJmeno = "Prodejce.findByJmeno";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @Column(name = "jmeno")
@@ -51,7 +52,7 @@ public class Prodejce implements Serializable {
     private int mzda;
     @ManyToMany(mappedBy = "prodejceCollection")
     private Collection<Pobocka> pobockaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodejceID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodejceId")
     private Collection<Smlouva> smlouvaCollection;
 
     public Prodejce() {
@@ -131,7 +132,7 @@ public class Prodejce implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Prodejce[ id=" + id + " ]";
+        return "dealer.Prodejce[ id=" + id + " ]";
     }
     
 }

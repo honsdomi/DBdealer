@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Pobocka")
+@Table(name = "pobocka")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pobocka.findAll", query = "SELECT p FROM Pobocka p"),
@@ -42,25 +42,25 @@ public class Pobocka implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Column(name = "telefon")
     private Integer telefon;
-    @JoinTable(name = "Prodejce_has_Pobocka", joinColumns = {
-        @JoinColumn(name = "Pobocka_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "Prodejce_ID", referencedColumnName = "ID")})
+    @JoinTable(name = "prodejce_has_pobocka", joinColumns = {
+        @JoinColumn(name = "pobocka_id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "prodejce_id", referencedColumnName = "id")})
     @ManyToMany
     private Collection<Prodejce> prodejceCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pobockaID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pobockaId")
     private Collection<Kapacita> kapacitaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pobockaID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pobockaId")
     private Collection<Auto> autoCollection;
-    @JoinColumn(name = "Spolecnost_nazev", referencedColumnName = "nazev")
+    @JoinColumn(name = "spolecnost_nazev", referencedColumnName = "nazev")
     @ManyToOne(optional = false)
-    private Spolecnost spolecnostnazev;
-    @JoinColumn(name = "Adresa_ID", referencedColumnName = "ID")
+    private Spolecnost spolecnostNazev;
+    @JoinColumn(name = "adresa_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Adresa adresaID;
+    private Adresa adresaId;
 
     public Pobocka() {
     }
@@ -112,20 +112,20 @@ public class Pobocka implements Serializable {
         this.autoCollection = autoCollection;
     }
 
-    public Spolecnost getSpolecnostnazev() {
-        return spolecnostnazev;
+    public Spolecnost getSpolecnostNazev() {
+        return spolecnostNazev;
     }
 
-    public void setSpolecnostnazev(Spolecnost spolecnostnazev) {
-        this.spolecnostnazev = spolecnostnazev;
+    public void setSpolecnostNazev(Spolecnost spolecnostNazev) {
+        this.spolecnostNazev = spolecnostNazev;
     }
 
-    public Adresa getAdresaID() {
-        return adresaID;
+    public Adresa getAdresaId() {
+        return adresaId;
     }
 
-    public void setAdresaID(Adresa adresaID) {
-        this.adresaID = adresaID;
+    public void setAdresaId(Adresa adresaId) {
+        this.adresaId = adresaId;
     }
 
     @Override
@@ -150,7 +150,7 @@ public class Pobocka implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Pobocka[ id=" + id + " ]";
+        return "dealer.Pobocka[ id=" + id + " ]";
     }
     
 }

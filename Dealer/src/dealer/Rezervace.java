@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tom
  */
 @Entity
-@Table(name = "Rezervace")
+@Table(name = "rezervace")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rezervace.findAll", query = "SELECT r FROM Rezervace r"),
@@ -44,7 +44,7 @@ public class Rezervace implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Integer id;
     @Column(name = "cena")
     private Integer cena;
@@ -57,12 +57,12 @@ public class Rezervace implements Serializable {
     @Column(name = "rok_vyroby")
     private Short rokVyroby;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rezervace")
-    private Collection<DoplnkovavybavahasRezervace> doplnkovavybavahasRezervaceCollection;
-    @OneToMany(mappedBy = "rezervaceID")
-    private Collection<Smlouva> smlouvaCollection;
-    @JoinColumn(name = "Auto_VIN", referencedColumnName = "VIN")
+    private Collection<DoplnkovaVybavaHasRezervace> doplnkovaVybavaHasRezervaceCollection;
+    @JoinColumn(name = "auto_vin", referencedColumnName = "vin")
     @ManyToOne(optional = false)
-    private Auto autoVIN;
+    private Auto autoVin;
+    @OneToMany(mappedBy = "rezervaceId")
+    private Collection<Smlouva> smlouvaCollection;
 
     public Rezervace() {
     }
@@ -120,12 +120,20 @@ public class Rezervace implements Serializable {
     }
 
     @XmlTransient
-    public Collection<DoplnkovavybavahasRezervace> getDoplnkovavybavahasRezervaceCollection() {
-        return doplnkovavybavahasRezervaceCollection;
+    public Collection<DoplnkovaVybavaHasRezervace> getDoplnkovaVybavaHasRezervaceCollection() {
+        return doplnkovaVybavaHasRezervaceCollection;
     }
 
-    public void setDoplnkovavybavahasRezervaceCollection(Collection<DoplnkovavybavahasRezervace> doplnkovavybavahasRezervaceCollection) {
-        this.doplnkovavybavahasRezervaceCollection = doplnkovavybavahasRezervaceCollection;
+    public void setDoplnkovaVybavaHasRezervaceCollection(Collection<DoplnkovaVybavaHasRezervace> doplnkovaVybavaHasRezervaceCollection) {
+        this.doplnkovaVybavaHasRezervaceCollection = doplnkovaVybavaHasRezervaceCollection;
+    }
+
+    public Auto getAutoVin() {
+        return autoVin;
+    }
+
+    public void setAutoVin(Auto autoVin) {
+        this.autoVin = autoVin;
     }
 
     @XmlTransient
@@ -135,14 +143,6 @@ public class Rezervace implements Serializable {
 
     public void setSmlouvaCollection(Collection<Smlouva> smlouvaCollection) {
         this.smlouvaCollection = smlouvaCollection;
-    }
-
-    public Auto getAutoVIN() {
-        return autoVIN;
-    }
-
-    public void setAutoVIN(Auto autoVIN) {
-        this.autoVIN = autoVIN;
     }
 
     @Override
@@ -167,7 +167,7 @@ public class Rezervace implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Rezervace[ id=" + id + " ]";
+        return "dealer.Rezervace[ id=" + id + " ]";
     }
     
 }

@@ -23,37 +23,37 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Tom
  */
 @Entity
-@Table(name = "Kapacita")
+@Table(name = "kapacita")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Kapacita.findAll", query = "SELECT k FROM Kapacita k"),
-    @NamedQuery(name = "Kapacita.findByTypkaroserie", query = "SELECT k FROM Kapacita k WHERE k.typkaroserie = :typkaroserie"),
+    @NamedQuery(name = "Kapacita.findByTypKaroserie", query = "SELECT k FROM Kapacita k WHERE k.typKaroserie = :typKaroserie"),
     @NamedQuery(name = "Kapacita.findByHodnota", query = "SELECT k FROM Kapacita k WHERE k.hodnota = :hodnota")})
 public class Kapacita implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Typ_karoserie")
-    private String typkaroserie;
+    @Column(name = "typ_karoserie")
+    private String typKaroserie;
     @Column(name = "hodnota")
     private Integer hodnota;
-    @JoinColumn(name = "Pobocka_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "pobocka_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Pobocka pobockaID;
+    private Pobocka pobockaId;
 
     public Kapacita() {
     }
 
-    public Kapacita(String typkaroserie) {
-        this.typkaroserie = typkaroserie;
+    public Kapacita(String typKaroserie) {
+        this.typKaroserie = typKaroserie;
     }
 
-    public String getTypkaroserie() {
-        return typkaroserie;
+    public String getTypKaroserie() {
+        return typKaroserie;
     }
 
-    public void setTypkaroserie(String typkaroserie) {
-        this.typkaroserie = typkaroserie;
+    public void setTypKaroserie(String typKaroserie) {
+        this.typKaroserie = typKaroserie;
     }
 
     public Integer getHodnota() {
@@ -64,18 +64,18 @@ public class Kapacita implements Serializable {
         this.hodnota = hodnota;
     }
 
-    public Pobocka getPobockaID() {
-        return pobockaID;
+    public Pobocka getPobockaId() {
+        return pobockaId;
     }
 
-    public void setPobockaID(Pobocka pobockaID) {
-        this.pobockaID = pobockaID;
+    public void setPobockaId(Pobocka pobockaId) {
+        this.pobockaId = pobockaId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (typkaroserie != null ? typkaroserie.hashCode() : 0);
+        hash += (typKaroserie != null ? typKaroserie.hashCode() : 0);
         return hash;
     }
 
@@ -86,7 +86,7 @@ public class Kapacita implements Serializable {
             return false;
         }
         Kapacita other = (Kapacita) object;
-        if ((this.typkaroserie == null && other.typkaroserie != null) || (this.typkaroserie != null && !this.typkaroserie.equals(other.typkaroserie))) {
+        if ((this.typKaroserie == null && other.typKaroserie != null) || (this.typKaroserie != null && !this.typKaroserie.equals(other.typKaroserie))) {
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class Kapacita implements Serializable {
 
     @Override
     public String toString() {
-        return "dscviceni10a.Kapacita[ typkaroserie=" + typkaroserie + " ]";
+        return "dealer.Kapacita[ typKaroserie=" + typKaroserie + " ]";
     }
     
 }
