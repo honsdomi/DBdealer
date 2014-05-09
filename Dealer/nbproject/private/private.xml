@@ -3,6 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/Tom/Documents/GitHub/DBdealer/Dealer/src/META-INF/persistence.xml</file>
+            <file>file:/C:/Users/Tom/Documents/GitHub/DBdealer/Dealer/src/dealer/Prodejce.java</file>
+            <file>file:/C:/Users/Tom/Documents/GitHub/DBdealer/Dealer/src/dealer/Spolecnost.java</file>
+            <file>file:/C:/Users/Tom/Documents/GitHub/DBdealer/Dealer/src/dealer/Main.java</file>
+        </group>
+>>>>>>> e36942d11e10dd886670c7d3efcc58571c44497c
     </open-files>
 </project-private>
