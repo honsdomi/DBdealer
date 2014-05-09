@@ -4,6 +4,7 @@
  */
 package dealer;
 
+import GUI.RegistraceDialog;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        RegistraceDialog r = new RegistraceDialog();
+        
+        
+        
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("DealerPU");
         EntityManager em = emf.createEntityManager();
 
