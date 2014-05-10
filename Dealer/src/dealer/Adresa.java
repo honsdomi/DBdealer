@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Adresa.findByPsc", query = "SELECT a FROM Adresa a WHERE a.psc = :psc")})
 public class Adresa implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByUlice = "Adresa.findByUlice";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -60,6 +61,14 @@ public class Adresa implements Serializable {
 
     public Adresa() {
     }
+
+    public Adresa(String mesto, String ulice, Integer cp, Integer psc) {
+        this.mesto = mesto;
+        this.ulice = ulice;
+        this.cp = cp;
+        this.psc = psc;
+    }
+    
 
     public Adresa(Integer id) {
         this.id = id;

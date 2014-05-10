@@ -17,6 +17,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
+import javax.swing.JDialog;
+import javax.swing.WindowConstants;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.sessions.Session;
 
@@ -25,17 +27,19 @@ import org.eclipse.persistence.sessions.Session;
  * @author lenka
  */
 public class Main {
-
+    public static EntityManagerFactory emf;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        emf = Persistence.createEntityManagerFactory("DealerPU");
         RegistraceDialog r = new RegistraceDialog();
+        r.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         
         
         
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("DealerPU");
+        
         EntityManager em = emf.createEntityManager();
 
         TypedQuery queryS = em.createQuery("Select s from Pobocka s", Pobocka.class);
