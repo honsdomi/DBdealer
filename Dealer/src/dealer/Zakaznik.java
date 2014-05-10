@@ -53,12 +53,6 @@ public class Zakaznik implements Serializable {
     public Zakaznik() {
     }
 
-    public Zakaznik(String jmeno, Adresa idAdresa) {
-        this.jmeno = jmeno;
-        this.idAdresa = idAdresa;
-    }
-    
-
     public Zakaznik(Integer id) {
         this.id = id;
     }
