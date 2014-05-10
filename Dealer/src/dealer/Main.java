@@ -4,6 +4,7 @@
  */
 package dealer;
 
+import GUI.Menu;
 import GUI.RegistraceDialog;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import org.eclipse.persistence.jpa.JpaEntityManager;
 import org.eclipse.persistence.sessions.Session;
@@ -33,8 +35,13 @@ public class Main {
      */
     public static void main(String[] args) {
         emf = Persistence.createEntityManagerFactory("DealerPU");
-        RegistraceDialog r = new RegistraceDialog();
-        r.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        JFrame f = new JFrame("Dealer aut");
+        Menu m = new Menu();
+        f.add(m);
+        f.pack();
+        f.setResizable(false);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
         
         
         

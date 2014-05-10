@@ -111,9 +111,6 @@ public class RegistraceDialog extends JDialog{
                 em.persist(a);
                 Zakaznik z = new Zakaznik(j,a);
                 em.persist(z);
-                
-                
-                System.out.println(a.getId());
                 em.getTransaction().commit();
                 dispose();
             }
