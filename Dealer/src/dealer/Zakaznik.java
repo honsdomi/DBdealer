@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Zakaznik.findByJmeno", query = "SELECT z FROM Zakaznik z WHERE z.jmeno = :jmeno")})
 public class Zakaznik implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByJmeno = "Zakaznik.findByJmeno";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

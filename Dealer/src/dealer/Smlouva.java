@@ -58,10 +58,21 @@ public class Smlouva implements Serializable {
     @JoinColumn(name = "prodejce_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Prodejce prodejceId;
+    @Column(name = "cena")
+    private Integer cena;
 
     public Smlouva() {
     }
 
+    public Smlouva(Date datumSplatnosti, boolean jeZaplacena, Zakaznik zakaznikId, Rezervace rezervaceId, Prodejce prodejceId, Integer cena) {
+        this.datumSplatnosti = datumSplatnosti;
+        this.jeZaplacena = jeZaplacena;
+        this.zakaznikId = zakaznikId;
+        this.rezervaceId = rezervaceId;
+        this.prodejceId = prodejceId;
+        this.cena = cena;
+    }
+    
     public Smlouva(Integer id) {
         this.id = id;
     }
@@ -79,7 +90,15 @@ public class Smlouva implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public Integer getCena() {
+        return cena;
+    }
 
+    public void setCena(Integer cena) {
+        this.cena = cena;
+    }
+    
     public Date getDatumSplatnosti() {
         return datumSplatnosti;
     }

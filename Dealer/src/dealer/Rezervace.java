@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Rezervace.findAll", query = "SELECT r FROM Rezervace r"),
     @NamedQuery(name = "Rezervace.findById", query = "SELECT r FROM Rezervace r WHERE r.id = :id"),
-    @NamedQuery(name = "Rezervace.findByCena", query = "SELECT r FROM Rezervace r WHERE r.cena = :cena"),
     @NamedQuery(name = "Rezervace.findByZnacka", query = "SELECT r FROM Rezervace r WHERE r.znacka = :znacka"),
     @NamedQuery(name = "Rezervace.findByModel", query = "SELECT r FROM Rezervace r WHERE r.model = :model"),
     @NamedQuery(name = "Rezervace.findByBarva", query = "SELECT r FROM Rezervace r WHERE r.barva = :barva"),
@@ -45,9 +44,7 @@ public class Rezervace implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Column(name = "cena")
-    private Integer cena;
+    private Integer id;    
     @Column(name = "znacka")
     private String znacka;
     @Column(name = "model")
@@ -67,6 +64,13 @@ public class Rezervace implements Serializable {
     public Rezervace() {
     }
 
+    public Rezervace(String znacka, String model, String barva, Short rokVyroby) {
+        this.znacka = znacka;
+        this.model = model;
+        this.barva = barva;
+        this.rokVyroby = rokVyroby;
+    }
+    
     public Rezervace(Integer id) {
         this.id = id;
     }
@@ -77,14 +81,6 @@ public class Rezervace implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getCena() {
-        return cena;
-    }
-
-    public void setCena(Integer cena) {
-        this.cena = cena;
     }
 
     public String getZnacka() {

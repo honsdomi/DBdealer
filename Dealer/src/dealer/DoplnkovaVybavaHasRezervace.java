@@ -45,6 +45,13 @@ public class DoplnkovaVybavaHasRezervace implements Serializable {
     public DoplnkovaVybavaHasRezervace() {
     }
 
+    public DoplnkovaVybavaHasRezervace(Integer pocet, Rezervace rezervace, DoplnkovaVybava doplnkovaVybava) {
+        this.doplnkovaVybavaHasRezervacePK = new DoplnkovaVybavaHasRezervacePK(doplnkovaVybava.getId(),rezervace.getId());
+        this.pocet = pocet;
+        this.rezervace = rezervace;
+        this.doplnkovaVybava = doplnkovaVybava;
+    }
+    
     public DoplnkovaVybavaHasRezervace(DoplnkovaVybavaHasRezervacePK doplnkovaVybavaHasRezervacePK) {
         this.doplnkovaVybavaHasRezervacePK = doplnkovaVybavaHasRezervacePK;
     }
