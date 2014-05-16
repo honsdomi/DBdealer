@@ -103,7 +103,7 @@ public class SmlouvaDialog extends JDialog{
         p.add(cpr);
         da = new JLabel("Datum splatnosti: ");
         p.add(da);
-        t = new JTextField();
+        t = new JTextField("yyyy-MM-dd");
         p.add(t);
         zn = new JLabel("Značka: ");
         p.add(zn);
@@ -169,13 +169,16 @@ public class SmlouvaDialog extends JDialog{
                     em.persist(reze);
 
                     String dop = (String)cdv.getSelectedItem();
-                    Query queryC = em.createNamedQuery(DoplnkovaVybava.findByNazev);
-                    queryC.setParameter("nazev", dop);
-                    List<DoplnkovaVybava> list = queryC.getResultList();
-                    DoplnkovaVybava dopl = list.get(0);
-                    int pocet = Integer.parseInt(tpdv.getText());
-                    DoplnkovaVybavaHasRezervace dvhr = new DoplnkovaVybavaHasRezervace(pocet,reze,dopl);
-                    em.persist(dvhr);
+                    if(dop != null){
+                        Query queryC = em.createNamedQuery(DoplnkovaVybava.findByNazev);
+                        queryC.setParameter("nazev", dop);
+                        List<DoplnkovaVybava> list = queryC.getResultList();
+                        DoplnkovaVybava dopl = list.get(0);
+                        int pocet = Integer.parseInt(tpdv.getText());
+                        DoplnkovaVybavaHasRezervace dvhr = new DoplnkovaVybavaHasRezervace(pocet,reze,dopl);
+                        em.persist(dvhr);
+                    }
+                    
 
 
 
