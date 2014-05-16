@@ -55,7 +55,7 @@ public class RegistraceDialog extends JDialog{
 
     private void initComponents() {
         this.setLayout(new BorderLayout(10,10));
-        this.setPreferredSize(new Dimension(300,300));
+        this.setPreferredSize(new Dimension(300,200));
         this.setResizable(false);
         
         reg = new JPanel(new GridLayout(5,2));
@@ -100,6 +100,7 @@ public class RegistraceDialog extends JDialog{
         ok.addActionListener(new ActionListener(){
 
             public void actionPerformed(ActionEvent e) {
+                try{
                 String j = jmeno.getText();
                 String m = mesto.getText();
                 String u = ulice.getText();
@@ -113,6 +114,9 @@ public class RegistraceDialog extends JDialog{
                 em.persist(z);
                 em.getTransaction().commit();
                 dispose();
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(reg,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
+                }
             }
             
         });

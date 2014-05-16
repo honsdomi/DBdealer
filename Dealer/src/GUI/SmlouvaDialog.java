@@ -9,6 +9,7 @@ package GUI;
 import dealer.DoplnkovaVybava;
 import dealer.DoplnkovaVybavaHasRezervace;
 import dealer.Main;
+import dealer.Pobocka;
 import dealer.Prodejce;
 import dealer.Rezervace;
 import dealer.Smlouva;
@@ -22,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,6 +42,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -153,54 +157,57 @@ public class SmlouvaDialog extends JDialog{
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                try{
                 
-                String zna = tzn.getText();
-                String mod = tmo.getText();
-                String bar = tba.getText();
-                short rok = (short)Integer.parseInt(tro.getText());
-                Rezervace reze = new Rezervace(zna, mod, bar, rok);
-                EntityManager em = Main.emf.createEntityManager();
-                em.getTransaction().begin();
-                em.persist(reze);
-                
-                String dop = (String)cdv.getSelectedItem();
-                Query queryC = em.createNamedQuery(DoplnkovaVybava.findByNazev);
-                queryC.setParameter("nazev", dop);
-                List<DoplnkovaVybava> list = queryC.getResultList();
-                DoplnkovaVybava dopl = list.get(0);
-                int pocet = Integer.parseInt(tpdv.getText());
-                DoplnkovaVybavaHasRezervace dvhr = new DoplnkovaVybavaHasRezervace(pocet,reze,dopl);
-                em.persist(dvhr);
-                
-                
-                
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    Date date = df.parse(t.getText());
-                    String z = (String)cza.getSelectedItem();
-                    String p = (String)cpr.getSelectedItem();
-                    
-                    Query queryZ = em.createNamedQuery(Zakaznik.findByJmeno);
-                    queryZ.setParameter("jmeno", z);
-                    List<Zakaznik> list2 = queryZ.getResultList();
-                    Zakaznik zaka = list2.get(0);
-                    
-                    Query queryP = em.createNamedQuery(Prodejce.findByJmeno);
-                    queryP.setParameter("jmeno", p);
-                    List<Prodejce> list3 = queryP.getResultList();
-                    Prodejce prod = list3.get(0);
-                    
-                    int cen = Integer.parseInt(tce.getText());
-                    
-                    Smlouva s = new Smlouva(date,false,zaka,reze,prod,cen);
-                    em.persist(s);
-                    em.getTransaction().commit();
-                    dispose();
-                    
-                } catch (ParseException ex) {
-                    Logger.getLogger(SmlouvaDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    String zna = tzn.getText();
+                    String mod = tmo.getText();
+                    String bar = tba.getText();
+                    short rok = (short)Integer.parseInt(tro.getText());
+                    Rezervace reze = new Rezervace(zna, mod, bar, rok);
+                    EntityManager em = Main.emf.createEntityManager();
+                    em.getTransaction().begin();
+                    em.persist(reze);
+
+                    String dop = (String)cdv.getSelectedItem();
+                    Query queryC = em.createNamedQuery(DoplnkovaVybava.findByNazev);
+                    queryC.setParameter("nazev", dop);
+                    List<DoplnkovaVybava> list = queryC.getResultList();
+                    DoplnkovaVybava dopl = list.get(0);
+                    int pocet = Integer.parseInt(tpdv.getText());
+                    DoplnkovaVybavaHasRezervace dvhr = new DoplnkovaVybavaHasRezervace(pocet,reze,dopl);
+                    em.persist(dvhr);
+
+
+
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        Date date = df.parse(t.getText());
+                        String z = (String)cza.getSelectedItem();
+                        String p = (String)cpr.getSelectedItem();
+
+                        Query queryZ = em.createNamedQuery(Zakaznik.findByJmeno);
+                        queryZ.setParameter("jmeno", z);
+                        List<Zakaznik> list2 = queryZ.getResultList();
+                        Zakaznik zaka = list2.get(0);
+
+                        Query queryP = em.createNamedQuery(Prodejce.findByJmeno);
+                        queryP.setParameter("jmeno", p);
+                        List<Prodejce> list3 = queryP.getResultList();
+                        Prodejce prod = list3.get(0);
+
+                        int cen = Integer.parseInt(tce.getText());
+
+                        Smlouva s = new Smlouva(date,false,zaka,reze,prod,cen);
+                        em.persist(s);
+                        em.getTransaction().commit();
+                        dispose();
+
+                    } catch (ParseException ex) {
+                        Logger.getLogger(SmlouvaDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
                 }
-                
             }
         });
     }
@@ -226,15 +233,17 @@ public class SmlouvaDialog extends JDialog{
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Prodejce> cq = cb.createQuery(Prodejce.class);
         Root<Prodejce> z = cq.from(Prodejce.class);
-        cq.select(z);
+        cq.select(z); //potrebuju jenom prodejce co jsou na pobocce v Menu.po;
         TypedQuery<Prodejce> q = em.createQuery(cq);
         List<Prodejce> all = q.getResultList();
-        String[]ret = new String[all.size()];
-        int i=0;
+        ArrayList<String>tmp = new ArrayList();
+        
         for (Prodejce p : all) {
-            ret[i] = p.getJmeno();
-            i++;
+            if(p.getPobockaCollection().contains(Menu.getPo())){ //tohle neni asi nejlepsi
+                tmp.add(p.getJmeno());
+            }            
         }
+        String[]ret = tmp.toArray(new String[tmp.size()]);
         return ret;
     }
 
