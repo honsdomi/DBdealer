@@ -16,9 +16,11 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 import javax.swing.*;
 
 /**
@@ -101,9 +103,9 @@ public class RegistraceDialog extends JDialog{
 
             public void actionPerformed(ActionEvent e) {
                 try{
-                String j = jmeno.getText();
-                String m = mesto.getText();
-                String u = ulice.getText();
+                String j = (jmeno.getText().equals("") ? null : jmeno.getText());
+                String m = (mesto.getText().equals("") ? null : mesto.getText());
+                String u = (ulice.getText().equals("") ? null : ulice.getText());
                 int c = Integer.parseInt(CP.getText());
                 int p = Integer.parseInt(PSC.getText());
                 Adresa a = new Adresa(m,u,c,p);
@@ -114,6 +116,8 @@ public class RegistraceDialog extends JDialog{
                 em.persist(z);
                 em.getTransaction().commit();
                 dispose();
+                }catch(RollbackException ex){
+                    JOptionPane.showMessageDialog(reg,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(reg,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
                 }

@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -103,7 +105,7 @@ public class SmlouvaDialog extends JDialog{
         p.add(cpr);
         da = new JLabel("Datum splatnosti: ");
         p.add(da);
-        t = new JTextField("yyyy-MM-dd");
+        t = new JTextField("YYYY-MM-DD");
         p.add(t);
         zn = new JLabel("Značka: ");
         p.add(zn);
@@ -159,9 +161,9 @@ public class SmlouvaDialog extends JDialog{
             public void actionPerformed(ActionEvent arg0) {
                 try{
                 
-                    String zna = tzn.getText();
-                    String mod = tmo.getText();
-                    String bar = tba.getText();
+                    String zna = (tzn.getText().equals("") ? null : tzn.getText());
+                    String mod = (tmo.getText().equals("") ? null : tmo.getText());
+                    String bar = (tba.getText().equals("") ? null : tba.getText());
                     short rok = (short)Integer.parseInt(tro.getText());
                     Rezervace reze = new Rezervace(zna, mod, bar, rok);
                     EntityManager em = Main.emf.createEntityManager();
@@ -187,6 +189,9 @@ public class SmlouvaDialog extends JDialog{
                         Date date = df.parse(t.getText());
                         String z = (String)cza.getSelectedItem();
                         String p = (String)cpr.getSelectedItem();
+                        if(z==null || p==null){
+                            throw new IOException();
+                        }
 
                         Query queryZ = em.createNamedQuery(Zakaznik.findByJmeno);
                         queryZ.setParameter("jmeno", z);
@@ -205,8 +210,12 @@ public class SmlouvaDialog extends JDialog{
                         em.getTransaction().commit();
                         dispose();
 
-                    } catch (ParseException ex) {
-                        Logger.getLogger(SmlouvaDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    }catch(PersistenceException ex){ 
+                        JOptionPane.showMessageDialog(null,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
+                    }catch (ParseException ex) {
+                        JOptionPane.showMessageDialog(null,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
                     }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null,"Neplatné zadání","Pozor",JOptionPane.WARNING_MESSAGE);
