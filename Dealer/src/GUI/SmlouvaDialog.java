@@ -6,6 +6,7 @@
 
 package GUI;
 
+import dealer.Adresa;
 import dealer.DoplnkovaVybava;
 import dealer.DoplnkovaVybavaHasRezervace;
 import dealer.Main;
@@ -242,20 +243,14 @@ public class SmlouvaDialog extends JDialog{
     }
     private String[] getProdejce(){
         EntityManager em = Main.emf.createEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Prodejce> cq = cb.createQuery(Prodejce.class);
-        Root<Prodejce> z = cq.from(Prodejce.class);
-        cq.select(z); //potrebuju jenom prodejce co jsou na pobocce v Menu.po;
-        TypedQuery<Prodejce> q = em.createQuery(cq);
-        List<Prodejce> all = q.getResultList();
-        ArrayList<String>tmp = new ArrayList();
         
-        for (Prodejce p : all) {
-            if(p.getPobockaCollection().contains(Menu.getPo())){ //tohle neni asi nejlepsi
-                tmp.add(p.getJmeno());
-            }            
-        }
-        String[]ret = tmp.toArray(new String[tmp.size()]);
+        Query qu = em.createQuery ("select pr.jmeno from Prodejce pr \n" +
+                                    "join pr.pobockaCollection po "+
+                                    "where po.id = ?1");
+        qu.setParameter (1, Menu.getPo().getId());
+        List<String> results = qu.getResultList ();
+        String[]ret = results.toArray(new String[results.size()]);
+        
         return ret;
     }
 
