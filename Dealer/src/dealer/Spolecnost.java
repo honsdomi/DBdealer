@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Spolecnost.findByNazev", query = "SELECT s FROM Spolecnost s WHERE s.nazev = :nazev")})
 public class Spolecnost implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final String findByNazev = "Spolecnost.findByNazev";
+
     @Id
     @Basic(optional = false)
     @Column(name = "nazev")
