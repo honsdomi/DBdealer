@@ -39,6 +39,12 @@ public class Statistiky {
         }
     }
 
+    public static void getNezaplaceneSmlouvy() {
+        Query queryS = em.createNativeQuery("Select sum(cena) from smlouva  WHERE je_zaplacena = false");
+        System.out.println("Cena vsech dosud nezaplacenych smluv je :");
+        System.out.println(queryS.getResultList().get(0));
+    }
+
     public static void getPobockaProdejce(String prodejce) {
         Query queryC = em.createNamedQuery(Prodejce.findByJmeno);
 

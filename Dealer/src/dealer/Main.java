@@ -79,6 +79,7 @@ public class Main {
         Statistiky.getSeznamProdejcu();
         Statistiky.getMzdaVyssiNez(40000);
         Statistiky.getMaxMzda();
+        Statistiky.getNezaplaceneSmlouvy();
         
     }
 }
