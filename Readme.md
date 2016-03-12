@@ -1,10 +1,7 @@
 Hi everyone!
 
-This is our great project :D
+This is our great project.
 
-We are trying to make a database, yey.
+We are trying to make a database.
 
 It's about dealing cars.
-
-
-##yolo #swag #bro
